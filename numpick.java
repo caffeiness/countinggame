@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
+
 public class numpick {
+	static int inputnumber=0;
+	static int playerTotal = 0;
+	static int cpuTotal = 0;
 	public static void main(String[] args) {
-		int total_p = 0;
-		int total_c = 0;
-		int inputnumber=0;
 		ArrayList<Integer> num_p = new ArrayList<Integer>();
 		ArrayList<Integer> num_c = new ArrayList<Integer>();
 		ArrayList<Integer> num = new ArrayList<Integer>();
@@ -24,52 +25,28 @@ public class numpick {
 
 		Scanner scanner = new Scanner(System.in);
 
-		while(total_p != 15 || total_c != 15) {
+		while(num.size() != 0) {
 			System.out.println(num);
 			System.out.println("どれを取りますか？");
 			inputnumber = scanner.nextInt();
-
-			if(num.size()==1){
-				num_p.add(inputnumber);
-				num.remove(num.indexOf(inputnumber));
-				match(num_p);
-				System.out.println("The end");
-				break;
-			}else if(num.contains(inputnumber)) {
-				//Player
-				num_p.add(inputnumber);
-				num.remove(num.indexOf(inputnumber));
-				if(match(num_p) == true) {
-					System.out.println("あなたの勝ちです");
-					System.out.println("");
+			if(num.contains(inputnumber)) {
+				player(num,num_p);
+				if(playerTotal == 15 || num.size() == 0) {
 					break;
-				}else {
-					System.out.println("あなたの取得した数は" + num_p);
-					System.out.println();
 				}
-
-
-				//CPU
-				int index = new Random().nextInt(num.size());
-				int cpuPicknum = num.get(index);
-				num_c.add(cpuPicknum);
-				num.remove(num.indexOf(cpuPicknum));
-				match(num_c);
-				if(match(num_c) == true) {
-					System.out.println("CPUの勝ちです");
-					System.out.println("");
+				cpu(num,num_c);
+				if(cpuTotal == 15 || num.size() == 0) {
 					break;
-				}else {
-					System.out.println("CPUの取得した数は" + num_c);
-					System.out.println();
 				}
-			}else {
+			}
+			else {
 				System.out.println("その数字はありません");
 			}
-
-
 		}
 		scanner.close();
+		if(playerTotal == 0 && cpuTotal == 0) {
+			System.out.println("引き分け");
+		}
 	}
 
 	public static boolean match(ArrayList<Integer>array) {
@@ -93,7 +70,33 @@ public class numpick {
 		}
 		return false;
 	}
-}
 
+	public static void player(ArrayList<Integer>num,ArrayList<Integer>num_p) {
+		num_p.add(inputnumber);
+		num.remove(num.indexOf(inputnumber));
+		if(match(num_p) == true) {
+			System.out.println("あなたの勝ちです");
+			System.out.println("");
+			playerTotal = 15;
+		}else {
+			System.out.println("あなたの取得した数は" + num_p);
+			System.out.println();
+		}
+	}
+	public static void cpu(ArrayList<Integer>num,ArrayList<Integer>num_c) {
+		int index = new Random().nextInt(num.size());
+		int cpuPicknum = num.get(index);
+			num_c.add(cpuPicknum);
+			num.remove(num.indexOf(cpuPicknum));
+			if(match(num_c) == true) {
+				System.out.println("CPUの勝ちです");
+				System.out.println("");
+				cpuTotal = 15;
+			}else {
+				System.out.println("CPUの取得した数は" + num_c);
+				System.out.println();
+			}
+	}
+}
 
 
