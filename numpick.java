@@ -1,8 +1,10 @@
 package kazutorigame;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Scanner;
 
 
 public class numpick {
@@ -23,12 +25,19 @@ public class numpick {
 		num.add(8);
 		num.add(9);
 
-		Scanner scanner = new Scanner(System.in);
-
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		while(num.size() != 0) {
 			System.out.println(num);
 			System.out.println("どれを取りますか？");
-			inputnumber = scanner.nextInt();
+			try {
+				inputnumber = Integer.parseInt(br.readLine());
+			}
+			catch(NumberFormatException e) {
+				System.err.println("数値を入力してください");
+			}catch(IOException e) {
+				System.out.println("もう一度入力してください");
+			}
+			
 			if(num.contains(inputnumber)) {
 				player(num,num_p);
 				if(playerTotal == 15 || num.size() == 0) {
@@ -38,16 +47,14 @@ public class numpick {
 				if(cpuTotal == 15 || num.size() == 0) {
 					break;
 				}
+				}else {
+					System.out.println("その数字はありません");
+				}
 			}
-			else {
-				System.out.println("その数字はありません");
+			if(playerTotal == 0 && cpuTotal == 0) {
+				System.out.println("引き分け");
 			}
 		}
-		scanner.close();
-		if(playerTotal == 0 && cpuTotal == 0) {
-			System.out.println("引き分け");
-		}
-	}
 
 	public static boolean match(ArrayList<Integer>array) {
 		if(array.size() >= 3) {
@@ -97,6 +104,11 @@ public class numpick {
 				System.out.println();
 			}
 	}
+
+	public static void reset() {
+
+	}
 }
+
 
 
