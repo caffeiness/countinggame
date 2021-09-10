@@ -37,9 +37,9 @@ public class numpick {
 		}catch(IOException e) {
 			System.out.println("もう一度入力してください");
 		}
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
 		if(input == 1) {
-			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 			while(num.size() != 0) {
 				System.out.println(num);
 				System.out.println("どれを取りますか？");
@@ -71,7 +71,6 @@ public class numpick {
 					System.out.println("CPUの取得した数は" + num_c);
 				}
 		}else {
-			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 			while(num.size() != 0) {
 				cpu(num,num_c);
 				if(cpuTotal == 15 || num.size() == 0) {
