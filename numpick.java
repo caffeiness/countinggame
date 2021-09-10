@@ -53,6 +53,8 @@ public class numpick {
 			}
 			if(playerTotal == 0 && cpuTotal == 0) {
 				System.out.println("引き分け");
+				System.out.println("あなたの取得した数は" + num_p);
+				System.out.println("CPUの取得した数は" + num_c);
 			}
 		}
 
