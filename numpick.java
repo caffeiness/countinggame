@@ -8,6 +8,8 @@ import java.util.Random;
 
 
 public class numpick {
+	static int first = 0;
+	static int input=0;
 	static int inputnumber=0;
 	static int playerTotal = 0;
 	static int cpuTotal = 0;
@@ -24,37 +26,82 @@ public class numpick {
 		num.add(7);
 		num.add(8);
 		num.add(9);
+		
+		System.out.println("先行:1 後行:2");
+		BufferedReader hantei = new BufferedReader(new InputStreamReader(System.in));
+		try {
+			input = Integer.parseInt(hantei.readLine());
+		}
+		catch(NumberFormatException e) {
+			System.err.println("数値を入力してください");
+		}catch(IOException e) {
+			System.out.println("もう一度入力してください");
+		}
 
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		while(num.size() != 0) {
-			System.out.println(num);
-			System.out.println("どれを取りますか？");
-			try {
-				inputnumber = Integer.parseInt(br.readLine());
-			}
-			catch(NumberFormatException e) {
-				System.err.println("数値を入力してください");
-			}catch(IOException e) {
-				System.out.println("もう一度入力してください");
-			}
-			
-			if(num.contains(inputnumber)) {
-				player(num,num_p);
-				if(playerTotal == 15 || num.size() == 0) {
-					break;
+		if(input == 1) {
+			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+			while(num.size() != 0) {
+				System.out.println(num);
+				System.out.println("どれを取りますか？");
+				try {
+					inputnumber = Integer.parseInt(br.readLine());
 				}
+				catch(NumberFormatException e) {
+					System.err.println("数値を入力してください");
+				}catch(IOException e) {
+					System.out.println("もう一度入力してください");
+				}
+
+				if(num.contains(inputnumber)) {
+					player(num,num_p);
+					if(playerTotal == 15 || num.size() == 0) {
+						break;
+					}
+					cpu(num,num_c);
+					if(cpuTotal == 15 || num.size() == 0) {
+						break;
+					}
+					}else {
+						System.out.println("その数字はありません");
+					}
+			}
+				if(playerTotal == 0 && cpuTotal == 0) {
+					System.out.println("引き分け");
+					System.out.println("あなたの取得した数は" + num_p);
+					System.out.println("CPUの取得した数は" + num_c);
+				}
+		}else {
+			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+			while(num.size() != 0) {
 				cpu(num,num_c);
 				if(cpuTotal == 15 || num.size() == 0) {
 					break;
 				}
-				}else {
-					System.out.println("その数字はありません");
+				System.out.println(num);
+				System.out.println("どれを取りますか？");
+				try {
+					inputnumber = Integer.parseInt(br.readLine());
 				}
-			}
-			if(playerTotal == 0 && cpuTotal == 0) {
-				System.out.println("引き分け");
-				System.out.println("あなたの取得した数は" + num_p);
-				System.out.println("CPUの取得した数は" + num_c);
+				catch(NumberFormatException e) {
+					System.err.println("数値を入力してください");
+				}catch(IOException e) {
+					System.out.println("もう一度入力してください");
+				}
+
+				if(num.contains(inputnumber)) {
+					player(num,num_p);
+					if(playerTotal == 15 || num.size() == 0) {
+						break;
+					}
+					}else {
+						System.out.println("その数字はありません");
+					}
+				}
+				if(playerTotal == 0 && cpuTotal == 0) {
+					System.out.println("引き分け");
+					System.out.println("あなたの取得した数は" + num_p);
+					System.out.println("CPUの取得した数は" + num_c);
+				}
 			}
 		}
 
