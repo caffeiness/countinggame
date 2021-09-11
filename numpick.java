@@ -9,7 +9,8 @@ import java.util.Random;
 
 public class numpick {
 	static int first = 0;
-	static int input=0;
+	static int input = 0;
+	static int error = 0;
 	static int inputnumber=0;
 	static int playerTotal = 0;
 	static int cpuTotal = 0;
@@ -63,6 +64,7 @@ public class numpick {
 					}
 					}else {
 						System.out.println("その数字はありません");
+						error += 1;
 					}
 			}
 				if(playerTotal == 0 && cpuTotal == 0) {
@@ -72,7 +74,10 @@ public class numpick {
 				}
 		}else {
 			while(num.size() != 0) {
-				cpu(num,num_c);
+				if (error == 0) {
+					cpu(num,num_c);
+				}
+				error = 0;
 				if(cpuTotal == 15 || num.size() == 0) {
 					break;
 				}
